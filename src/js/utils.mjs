@@ -31,4 +31,19 @@ export function getParam(param) {
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
+/**
+ * Renderiza una lista en el DOM usando una función plantilla.
+ * @param {Function} templateFn - Función que devuelve HTML para cada elemento
+ * @param {HTMLElement} parentElement - Elemento en el DOM donde insertar la lista
+ * @param {Array} list - Lista de objetos a renderizar
+ * @param {String} position - Dónde insertar el HTML ("afterbegin", "beforeend", etc.)
+ * @param {Boolean} clear - Si se debe limpiar el contenido del elemento antes
+ */
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+  if (clear) {
+    parentElement.innerHTML = '';
+  }
+  const htmlStrings = list.map(templateFn);
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
+}
 
