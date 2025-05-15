@@ -21,3 +21,14 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+/**
+ * Obtiene el valor de un parámetro desde la URL
+ * @param {string} param El nombre del parámetro a buscar
+ * @returns {string|null} El valor del parámetro si existe, si no, null
+ */
+export function getParam(param) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  return urlParams.get(param);
+}
+
