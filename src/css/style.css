@@ -261,3 +261,23 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+.categories {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+  gap: 1rem;
+}
+.categories a {
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+.categories img {
+  width: 64px;
+  transition: transform 0.3s ease;
+}
+.categories img:hover {
+  transform: scale(1.1);
+}
