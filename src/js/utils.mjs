@@ -1,19 +1,19 @@
-// wrapper for querySelector...returns matching element 
+// Select element shortcut
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
 
-// retrieve data from localstorage
+// Get data from local storage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
 
-// save data to local storage
+// Set data in local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
-// set a listener for both touchend and click
+// Add click/touchend listener
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
     event.preventDefault();
@@ -22,48 +22,39 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener("click", callback);
 }
 
-/**
- * Obtiene el valor de un parámetro desde la URL
- * @param {string} param El nombre del parámetro a buscar
- * @returns {string|null} El valor del parámetro si existe, si no, null
- */
+// Get URL parameter by name
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
 
-/**
- * Renderiza una lista en el DOM usando una función plantilla.
- */
+// Render a list using a template function
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
-  if (clear) {
-    parentElement.innerHTML = '';
-  }
+  if (clear) parentElement.innerHTML = '';
   const htmlStrings = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 }
 
-/**
- * Renderiza contenido estático (como el header/footer).
- */
+// Render static HTML template into a container
 export function renderWithTemplate(template, parentElement, data = null, callback = null) {
   parentElement.innerHTML = template;
   if (callback) callback(data);
 }
 
-/**
- * Carga un archivo HTML desde una ruta.
- */
+// Load template HTML from a path
 export async function loadTemplate(path) {
-  const res = await fetch(path);
-  const text = await res.text();
-  return text;
+  try {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error(`Error loading template: ${path}`);
+    return await res.text();
+  } catch (err) {
+    console.error(err);
+    return `<p>Error loading ${path}</p>`;
+  }
 }
 
-/**
- * Inserta dinámicamente el header y footer.
- */
+// Load and render header and footer dynamically
 export async function loadHeaderFooter() {
   const header = await loadTemplate('/partials/header.html');
   const footer = await loadTemplate('/partials/footer.html');
