@@ -1,18 +1,18 @@
-// wrapper for querySelector...returns matching element
+// wrapper for querySelector...returns matching element 
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
 // retrieve data from localstorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
 }
+
 // save data to local storage
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
+
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
   qs(selector).addEventListener("touchend", (event) => {
@@ -21,6 +21,7 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
 /**
  * Obtiene el valor de un parámetro desde la URL
  * @param {string} param El nombre del parámetro a buscar
@@ -31,13 +32,9 @@ export function getParam(param) {
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
 }
+
 /**
  * Renderiza una lista en el DOM usando una función plantilla.
- * @param {Function} templateFn - Función que devuelve HTML para cada elemento
- * @param {HTMLElement} parentElement - Elemento en el DOM donde insertar la lista
- * @param {Array} list - Lista de objetos a renderizar
- * @param {String} position - Dónde insertar el HTML ("afterbegin", "beforeend", etc.)
- * @param {Boolean} clear - Si se debe limpiar el contenido del elemento antes
  */
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
   if (clear) {
@@ -47,3 +44,31 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   parentElement.insertAdjacentHTML(position, htmlStrings.join(''));
 }
 
+/**
+ * Renderiza contenido estático (como el header/footer).
+ */
+export function renderWithTemplate(template, parentElement, data = null, callback = null) {
+  parentElement.innerHTML = template;
+  if (callback) callback(data);
+}
+
+/**
+ * Carga un archivo HTML desde una ruta.
+ */
+export async function loadTemplate(path) {
+  const res = await fetch(path);
+  const text = await res.text();
+  return text;
+}
+
+/**
+ * Inserta dinámicamente el header y footer.
+ */
+export async function loadHeaderFooter() {
+  const header = await loadTemplate('/partials/header.html');
+  const footer = await loadTemplate('/partials/footer.html');
+  const headerEl = document.querySelector('header');
+  const footerEl = document.querySelector('footer');
+  renderWithTemplate(header, headerEl);
+  renderWithTemplate(footer, footerEl);
+}
