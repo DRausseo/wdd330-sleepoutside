@@ -1,4 +1,4 @@
-:root {
+ :root {
   --font-body: Arial, Helvetica, sans-serif;
   --font-headline: Haettenschweiler, "Arial Narrow Bold", sans-serif;
   /* colors */
@@ -261,6 +261,7 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+}
 .categories {
   display: flex;
   justify-content: space-around;
@@ -281,3 +282,4 @@ footer {
 .categories img:hover {
   transform: scale(1.1);
 }
+
