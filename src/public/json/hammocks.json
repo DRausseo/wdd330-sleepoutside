@@ -1,0 +1,18 @@
+[
+  {
+    "Id": "hammock-1",
+    "Brand": "REI",
+    "Name": "REI Hammock Deluxe",
+    "NameWithoutBrand": "Hammock Deluxe",
+    "Image": "/images/hammock-deluxe.jpg",
+    "FinalPrice": 49.99
+  },
+  {
+    "Id": "hammock-2",
+    "Brand": "ENO",
+    "Name": "ENO Travel Hammock",
+    "NameWithoutBrand": "Travel Hammock",
+    "Image": "/images/eno-travel.jpg",
+    "FinalPrice": 59.99
+  }
+]
