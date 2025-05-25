@@ -6,22 +6,11 @@
     <title>Sleep Outside | Home</title>
     <link rel="stylesheet" href="/css/style.css" />
     <script type="module" src="./js/main.js"></script>
+    <script type="module" src="/js/injectHeaderFooter.js"></script>
   </head>
 
   <body>
-    <header class="divider">
-      <div class="logo">
-        <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
-        <a href="index.html"> Sleep<span class="highlight">Outside</span></a>
-      </div>
-      <div class="cart">
-        <a href="cart/index.html">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-            <!-- ... cart SVG paths ... -->
-          </svg>
-        </a>
-      </div>
-    </header>
+    <header class="divider"></header>
 
     <main class="divider">
       <div class="hero">
@@ -42,6 +31,27 @@
         </div>
       </div>
 
+      <!-- 🔽 Categorías debajo del banner -->
+      <section class="categories">
+        <a href="/product_listing/index.html?category=tents">
+          <img src="https://byui-cse.github.io/wdd330-ww-course/images/category-tents.svg" alt="Tents icon" />
+          <p>Tents</p>
+        </a>
+        <a href="/product_listing/index.html?category=backpacks">
+          <img src="https://byui-cse.github.io/wdd330-ww-course/images/category-backpacks.svg" alt="Backpacks icon" />
+          <p>Backpacks</p>
+        </a>
+        <a href="/product_listing/index.html?category=sleeping-bags">
+          <img src="https://byui-cse.github.io/wdd330-ww-course/images/category-sleepingbags.svg" alt="Sleeping Bags icon" />
+          <p>Sleeping Bags</p>
+        </a>
+        <a href="/product_listing/index.html?category=hammocks">
+          <img src="https://byui-cse.github.io/wdd330-ww-course/images/category-hammocks.svg" alt="Hammocks icon" />
+          <p>Hammocks</p>
+        </a>
+      </section>
+
+      <!-- ⭐ Productos destacados -->
       <section class="products">
         <h2>Top Products</h2>
         <ul class="product-list">
@@ -93,10 +103,6 @@
       </section>
     </main>
 
-    <footer>
-      <a href="/about.html">About Us</a>
-      &copy;2025 ⛺ SleepOutside ⛺ WDD 330 ⛺ BYU-Idaho for BYU-Pathway
-      Worldwide Online
-    </footer>
+    <footer></footer>
   </body>
 </html>

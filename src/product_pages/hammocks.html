@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hammocks | Sleep Outside</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script type="module">
+      import ProductData from '/js/ProductData.mjs';
+      import ProductList from '/js/ProductList.mjs';
+
+      const dataSource = new ProductData('hammocks');
+      const productList = new ProductList('hammocks', dataSource, document.querySelector('.product-list'));
+      productList.init();
+    </script>
+  </head>
+  <body>
+    <header class="divider">
+      <!-- Puedes usar fetch para inyectar dinámicamente si haces la actividad de header/footer -->
+      <div class="logo">
+        <img src="/images/noun_Tent_2517.svg" alt="tent logo" />
+        <a href="/index.html">Sleep<span class="highlight">Outside</span></a>
+      </div>
+    </header>
+
+    <main class="divider">
+      <ul class="product-list grid"></ul>
+    </main>
+
+    <footer>&copy; Sleep Outside</footer>
+  </body>
+</html>
