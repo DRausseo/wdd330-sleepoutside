@@ -1,3 +1,5 @@
+// utils.mjs
+
 // Select element shortcut
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -62,4 +64,31 @@ export async function loadHeaderFooter() {
   const footerEl = document.querySelector('footer');
   renderWithTemplate(header, headerEl);
   renderWithTemplate(footer, footerEl);
+}
+
+/**
+ * Elimina un producto del carrito basado en su ID.
+ * @param {string} id - El ID del producto a eliminar
+ */
+export function removeItemFromCart(id) {
+  const cart = getLocalStorage("so-cart") || [];
+  const updatedCart = cart.filter(item => item.Id !== id);
+  setLocalStorage("so-cart", updatedCart);
+}
+
+/**
+ * Actualiza el número de ítems del carrito mostrado en el ícono.
+ */
+export function updateCartCounter() {
+  const cart = getLocalStorage("so-cart") || [];
+  const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const badge = document.querySelector(".cart span");
+
+  if (badge) {
+    badge.textContent = count;
+  } else {
+    const span = document.createElement("span");
+    span.textContent = count;
+    document.querySelector(".cart").appendChild(span);
+  }
 }
