@@ -92,3 +92,25 @@ export function updateCartCounter() {
     document.querySelector(".cart").appendChild(span);
   }
 }
+
+/**
+ * Display a styled alert message at the top of the main content.
+ * @param {string} message - The message to display
+ * @param {boolean} scroll - Scroll to top of page (default true)
+ */
+export function alertMessage(message, scroll = true) {
+  const main = document.querySelector("main");
+  const existing = document.querySelector(".alert");
+
+  if (existing) existing.remove();
+
+  const div = document.createElement("div");
+  div.classList.add("alert");
+  div.innerHTML = `<p>${message}</p>`;
+  main.prepend(div);
+
+  if (scroll) window.scrollTo({ top: 0, behavior: "smooth" });
+
+  // Optional: auto-remove after a few seconds
+  setTimeout(() => div.remove(), 6000);
+}
