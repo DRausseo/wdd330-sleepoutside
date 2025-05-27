@@ -1,5 +1,5 @@
 // src/js/CheckoutProcess.mjs
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, alertMessage } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 export default class CheckoutProcess {
@@ -17,11 +17,14 @@ export default class CheckoutProcess {
   init() {
     this.list = getLocalStorage(this.key);
     this.calculateItemSubTotal();
-    this.displayOrderTotals(); // optional for preview
+    this.displayOrderTotals();
   }
 
   calculateItemSubTotal() {
-    this.itemTotal = this.list.reduce((acc, item) => acc + item.FinalPrice * item.quantity, 0);
+    this.itemTotal = this.list.reduce(
+      (acc, item) => acc + item.FinalPrice * item.quantity,
+      0
+    );
     document.querySelector(`${this.outputSelector} #subtotal`).textContent = `$${this.itemTotal.toFixed(2)}`;
   }
 
@@ -42,32 +45,37 @@ export default class CheckoutProcess {
   packageItems() {
     return this.list.map(item => ({
       id: item.Id,
-      name: item.Name,
+      name: item.NameWithoutBrand || item.Name,
       price: item.FinalPrice,
       quantity: item.quantity
     }));
   }
 
-  async checkout(form) {
-    const formElement = document.forms[form];
-    const formData = new FormData(formElement);
-    const order = {};
-
-    formData.forEach((value, key) => {
-      order[key] = value;
-    });
-
-    order.orderDate = new Date().toISOString();
-    order.items = this.packageItems();
-    order.shipping = this.shipping;
-    order.tax = this.tax.toFixed(2);
-    order.orderTotal = this.orderTotal.toFixed(2);
-
+  async checkout(formName) {
     try {
+      const formElement = document.forms[formName];
+      const formData = new FormData(formElement);
+      const order = {};
+
+      formData.forEach((value, key) => {
+        order[key] = value;
+      });
+
+      order.orderDate = new Date().toISOString();
+      order.items = this.packageItems();
+      order.shipping = this.shipping;
+      order.tax = this.tax.toFixed(2);
+      order.orderTotal = this.orderTotal.toFixed(2);
+
       const response = await this.services.checkout(order);
-      return response;
+      localStorage.removeItem(this.key);
+      window.location.href = "success.html";
     } catch (err) {
-      console.error("Checkout failed", err);
+      if (err.name === "servicesError" && err.message.errors) {
+        err.message.errors.forEach(msg => alertMessage(msg));
+      } else {
+        alertMessage("Something went wrong. Please try again.");
+      }
     }
   }
 }

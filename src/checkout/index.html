@@ -5,50 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Checkout</title>
     <link rel="stylesheet" href="/css/style.css" />
-    <script type="module" src="/js/checkout.js"></script>
+    <script type="module" src="/js/checkout.js" defer></script>
   </head>
 
   <body>
-    <header class="divider">
-      <div class="logo">
-        <img src="/images/noun_Tent_2517.svg" alt="tent image for logo" />
-        <a href="/index.html">Sleep <span class="highlight">Outside</span></a>
-      </div>
-      <div class="cart">
-        <a href="/cart/">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-            <!-- icon path shortened -->
-          </svg>
-        </a>
-      </div>
-    </header>
+    <header class="divider"></header>
 
     <main class="divider">
       <h2>Review & Place your Order</h2>
 
-      <form id="checkout-form" class="checkout-form">
+      <form id="checkout-form" name="checkout-form" class="checkout-form">
         <fieldset>
           <legend>Customer Info</legend>
-          <label>First Name: <input type="text" name="fname" required /></label>
-          <label>Last Name: <input type="text" name="lname" required /></label>
+          <label for="fname">First Name:
+            <input type="text" name="fname" id="fname" required />
+          </label>
+          <label for="lname">Last Name:
+            <input type="text" name="lname" id="lname" required />
+          </label>
         </fieldset>
 
         <fieldset>
           <legend>Shipping Address</legend>
-          <label>Street Address: <input type="text" name="street" required /></label>
-          <label>City: <input type="text" name="city" required /></label>
-          <label>State: <input type="text" name="state" required /></label>
-          <label>Zip Code: <input type="text" name="zip" required /></label>
+          <label for="street">Street Address:
+            <input type="text" name="street" id="street" required />
+          </label>
+          <label for="city">City:
+            <input type="text" name="city" id="city" required />
+          </label>
+          <label for="state">State:
+            <input type="text" name="state" id="state" required />
+          </label>
+          <label for="zip">Zip Code:
+            <input type="text" name="zip" id="zip" required />
+          </label>
         </fieldset>
 
         <fieldset>
           <legend>Payment Info</legend>
-          <label>Card Number: <input type="text" name="cardNumber" required value="1234123412341234" /></label>
-          <label>Expiration Date: <input type="text" name="expiration" required value="12/30" /></label>
-          <label>Security Code: <input type="text" name="code" required value="123" /></label>
+          <label for="cardNumber">Card Number:
+            <input
+              type="text"
+              name="cardNumber"
+              id="cardNumber"
+              required
+              pattern="\d{16}"
+              maxlength="16"
+              value="1234123412341234"
+            />
+          </label>
+          <label for="expiration">Expiration Date:
+            <input
+              type="text"
+              name="expiration"
+              id="expiration"
+              required
+              pattern="\d{2}/\d{2}"
+              value="12/30"
+            />
+          </label>
+          <label for="code">Security Code:
+            <input
+              type="text"
+              name="code"
+              id="code"
+              required
+              maxlength="3"
+              pattern="\d{3}"
+              value="123"
+            />
+          </label>
         </fieldset>
 
-        <button type="submit">Checkout</button>
+        <button type="submit" id="checkoutSubmit">Checkout</button>
       </form>
 
       <section class="order-summary">
@@ -60,7 +89,7 @@
       </section>
     </main>
 
-    <footer>&copy; NOT a real business</footer>
+    <footer></footer>
   </body>
 </html>
 
